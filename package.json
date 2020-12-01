@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "fake-jwt-sign": "^1.1.1",
     "jwt-decode": "^3.1.2",
-    "rxjs": "latest"
+    "rxjs": "latest",
+    "typescript": "2.* || 3.*"
   }
 }

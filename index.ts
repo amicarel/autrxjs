@@ -1,9 +1,7 @@
-import { of } from "rxjs";
-import { map } from "rxjs/operators";
+import {InMemoryAuthService} from './auth/auth.inmemory.service'
 
 // vaffanculo
 // culone
 
-const source = of("World").pipe(map(x => `Hello ${x}!`));
-
-source.subscribe(console.log);
+const authService = new InMemoryAuthService()
+authService.login('aa.test.com', '12345678')
