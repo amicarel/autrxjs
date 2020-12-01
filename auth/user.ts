@@ -1,4 +1,3 @@
-// import { Role } from '../../auth/auth.enum'
 
 export enum Role {
   None = 'none',
@@ -50,7 +49,7 @@ export class User implements IUser {
     // tslint:disable-next-line: variable-name
     public _id = '',
     public email = '',
-    public name = { first: '', middle: '', last: '' } as IName,
+    public name = {first: '', middle: '', last: ''} as IName,
     public picture = '',
     public role = Role.None,
     public dateOfBirth: Date | null = null,
@@ -63,12 +62,12 @@ export class User implements IUser {
       zip: '',
     },
     public phones: IPhone[] = []
-  ) {}
+  ) { }
   static Build(user: IUser): User {
-    if (!user) {
+    if(!user) {
       return new User()
     }
-    if (typeof user.dateOfBirth === 'string') {
+    if(typeof user.dateOfBirth === 'string') {
       user.dateOfBirth = new Date(user.dateOfBirth)
     }
     return new User(
@@ -85,10 +84,10 @@ export class User implements IUser {
     )
   }
   public get fullName(): string {
-    if (!this.name) {
+    if(!this.name) {
       return ''
     }
-    if (this.name.middle) {
+    if(this.name.middle) {
       return `${this.name.first} ${this.name.middle} ${this.name.last}`
     }
     return `${this.name.first} ${this.name.last}`
