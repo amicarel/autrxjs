@@ -53,23 +53,26 @@ export abstract class AuthService extends CacheService implements IAuthService {
   login(email: string, password: string): Observable<void> {
     this.clearToken()
     const loginResponse$ = this.authProvider(email, password).pipe(
-      // tap((x) => console.log('tapLog1  ' + JSON.stringify(x))),
+     tap((x) => console.log('tapLog1  ' + JSON.stringify(x))),
       map((value) => {
         this.setToken(value.accessToken)
         const token = jwtDecode(value.accessToken)
         return this.transformJwtToken(token)
       }),
       tap((status) => this.authStatus$.next(status)),
+      tap((status) => console.log('before filter'+ JSON.stringify(status))),
       filter((status: IAuthStatus) => status.isAuthenticated),
+      tap((status) => console.log('after filter'+ JSON.stringify(status))),
       // tslint:disable-next-line: deprecation
-      flatMap(() => this.getCurrentUser()),
-      // tap((x) => console.log('taplog2')),
+      flatMap(() => this.getCurrentUser()),      
+     tap((status) => console.log('after flapMap'+ JSON.stringify(status))),
       map((user) => this.currentUser$.next(user)),
       catchError(transformError)
     )
     loginResponse$.subscribe({
       error: (err) => {
         this.logout()
+        console.error(err)
         return throwError(err)
       },
     })
