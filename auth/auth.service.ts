@@ -65,15 +65,15 @@ export abstract class AuthService extends CacheService implements IAuthService {
       tap((status) => console.log('after filter'+ JSON.stringify(status))),
       // tslint:disable-next-line: deprecation
       flatMap(() => this.getCurrentUser()),      
-     tap((status) => console.log('after flapMap'+ JSON.stringify(status))),
+      /tap((status) => console.log('after flapMap'+ JSON.stringify(status))),
       map((user) => this.currentUser$.next(user)),
       catchError(transformError)
     )
     loginResponse$.subscribe({
       error: (err) => {
         this.logout()
-        console.error(err)
-        return throwError(err) 
+         // console.error(err)
+        return throwError(err)         
       },
     })
     return loginResponse$
